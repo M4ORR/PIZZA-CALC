@@ -45,6 +45,7 @@
             max-width: 450px;
             overflow: hidden;
             margin-top: 20px;
+            margin-bottom: 20px;
         }
 
         .header {
@@ -94,7 +95,19 @@
             font-weight: 800;
             cursor: pointer;
             margin-top: 10px;
+            transition: background-color 0.3s;
         }
+
+        button:active { transform: scale(0.98); }
+
+        .secondary-btn {
+            background-color: #34495e;
+            font-size: 16px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .secondary-btn:hover { background-color: #2c3e50; }
 
         .results { margin-top: 25px; display: none; animation: slideUp 0.4s ease-out; }
 
@@ -135,6 +148,29 @@
 
         .water-split div { display: flex; justify-content: space-between; margin-bottom: 5px; }
         .total-note { font-size: 11px; color: #555; display: block; text-align: center; margin-top: 5px; }
+
+        /* עיצוב להוראות ההכנה */
+        .instructions {
+            margin-top: 15px;
+            background-color: #fff9f0;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #ffcc80;
+            display: none;
+            animation: slideUp 0.4s ease-out;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .inst-step {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ffe0b2;
+        }
+
+        .inst-step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .inst-title { font-weight: 800; color: #e65100; margin-bottom: 5px; display: block;}
+        .inst-highlight { font-weight: bold; color: #d84315; }
     </style>
 </head>
 <body>
@@ -164,7 +200,7 @@
                     <div class="section-title">שלב 1: הכנת הביגה</div>
                     <div class="result-row"><span>קמח (40%):</span><span class="value" id="resBigaFlour">0g</span></div>
                     <div class="result-row"><span>מים (50% לביגה):</span><span class="value" id="resBigaWater">0ml</span></div>
-                    <div class="result-row"><span>שמרים יבשים:</span><span class="value" id="resBigaYeast">0g</span></div>
+                    <div class="result-row"><span>שמרים (טריים/יבשים בהתאמה):</span><span class="value" id="resBigaYeast">0g</span></div>
                 </div>
 
                 <div class="section-card final">
@@ -186,6 +222,40 @@
                     </div>
                 </div>
 
+                <button id="instBtn" class="secondary-btn" onclick="toggleInstructions()">📖 איך מכינים? (הוראות מלאות)</button>
+
+                <div id="instructionsArea" class="instructions">
+                    <div class="inst-step">
+                        <span class="inst-title">שלב 1: הביגה (יום קודם)</span>
+                        מפוררים את השמרים לתוך המים של הביגה ומערבבים. שופכים על הקמח ומערבבים <span class="inst-highlight">רק עד לאיחוד</span> (לא ללוש, להשאיר במרקם פירורי וקרוע). משאירים 30-60 דקות בחוץ, ואז למקרר ל-19-24 שעות.
+                    </div>
+                    
+                    <div class="inst-step">
+                        <span class="inst-title">שלב 2: פתיחת הבצק (במיקסר)</span>
+                        מוציאים את הביגה, חותכים לקוביות קטנות ושמים במיקסר יחד עם ה-<span class="inst-highlight">80% מים</span> (רצוי קרים מאוד). מפעילים על מהירות נמוכה עד שהביגה מתפרקת למים חלביים.
+                    </div>
+
+                    <div class="inst-step">
+                        <span class="inst-title">שלב 3: לישה ובסינאז'</span>
+                        מוסיפים את הקמח ולשים עד לאיחוד. מתחילים להוסיף את ה-<span class="inst-highlight">20% מים הנותרים</span> בזילופים איטיים. לתוך השלוק האחרון של המים מערבבים את המלח ומוסיפים. לשים במהירות בינונית עד לבצק חלק ומבריק. <span class="inst-highlight">חשוב: לא לעבור 24°C!</span>
+                    </div>
+
+                    <div class="inst-step">
+                        <span class="inst-title">שלב 4: מנוחה וקיפולים</span>
+                        משאירים את הבצק למנוחה של 15 דק' בקערת המיקסר. מעבירים למשטח עבודה משומן קלות, עושים קיפולים (Stretch & Fold) לקבלת כדור מתוח וחלק, ונותנים עוד 20 דקות מנוחה מכוסה.
+                    </div>
+
+                    <div class="inst-step">
+                        <span class="inst-title">שלב 5: כדורים והתפחה (24 שעות)</span>
+                        מחלקים את הבצק לכדורים ושמים בקופסאות משומנות. מכניסים למקרר ל-24 שעות של הבשלה מלאה.
+                    </div>
+
+                    <div class="inst-step">
+                        <span class="inst-title">שלב 6: אפייה 🍕</span>
+                        מוציאים את הכדורים שעה וחצי-שעתיים לפני האפייה כדי שיגיעו לטמפרטורת החדר. פותחים על סמולינה, שמים תוספות, ולאפות ב-Ooni על חום מקסימלי!
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -197,10 +267,13 @@
 
             if (!totalFlour || !hydration) return;
 
+            // חישוב ביגה
             const bigaFlour = totalFlour * 0.40;
             const bigaWater = bigaFlour * 0.50;
+            // התיקון שהתבקש: 0.75% מתוך קמח הביגה
             const bigaYeast = bigaFlour * 0.0075; 
 
+            // חישוב סופי
             const salt = totalFlour * 0.03;
             const totalWater = totalFlour * (hydration / 100);
             
@@ -210,9 +283,10 @@
             const water80 = mainWaterRemaining * 0.80;
             const water20 = mainWaterRemaining * 0.20;
 
+            // הצגת הנתונים
             document.getElementById('resBigaFlour').innerText = bigaFlour.toFixed(0) + 'g';
             document.getElementById('resBigaWater').innerText = bigaWater.toFixed(0) + 'ml';
-            document.getElementById('resBigaYeast').innerText = bigaYeast.toFixed(1) + 'g';
+            document.getElementById('resBigaYeast').innerText = bigaYeast.toFixed(2) + 'g';
             
             document.getElementById('resMainFlour').innerText = mainFlour.toFixed(0) + 'g';
             document.getElementById('resSalt').innerText = salt.toFixed(1) + 'g';
@@ -221,7 +295,23 @@
             document.getElementById('resWater20').innerText = water20.toFixed(0) + 'ml';
             document.getElementById('resMainWaterTotal').innerText = mainWaterRemaining.toFixed(0);
 
+            // הצגת אזור התוצאות והכפתור
             document.getElementById('resultsArea').style.display = 'block';
+            document.getElementById('instBtn').style.display = 'block';
+            document.getElementById('instructionsArea').style.display = 'none'; // לאפס אם חישבו מחדש
+        }
+
+        function toggleInstructions() {
+            const instArea = document.getElementById('instructionsArea');
+            if(instArea.style.display === 'none' || instArea.style.display === '') {
+                instArea.style.display = 'block';
+                // גלילה חלקה למטה כדי לראות את כל ההוראות
+                setTimeout(() => {
+                    window.scrollTo({ top: instArea.offsetTop, behavior: 'smooth' });
+                }, 100);
+            } else {
+                instArea.style.display = 'none';
+            }
         }
     </script>
 </body>
