@@ -9,8 +9,6 @@
     <meta name="apple-mobile-web-app-title" content="Pizza Maor">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍕</text></svg>">
-    
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 180 180%22><rect width=%22180%22 height=%22180%22 rx=%2240%22 fill=%22%23CE2B37%22/><rect width=%2260%22 height=%22180%22 rx=%220%22 fill=%22%23009246%22/><rect x=%2260%22 width=%2260%22 height=%22180%22 fill=%22%23ffffff%22/><text y=%22115%22 x=%2290%22 font-size=%22100%22 text-anchor=%22middle%22 font-family=%22Arial%22>🍕</text></svg>">
 
     <title>PIZZA CALC</title>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap" rel="stylesheet">
@@ -151,6 +149,7 @@
         .water-split div { display: flex; justify-content: space-between; margin-bottom: 5px; }
         .total-note { font-size: 11px; color: #555; display: block; text-align: center; margin-top: 5px; }
 
+        /* עיצוב להוראות ההכנה */
         .instructions {
             margin-top: 15px;
             background-color: #fff9f0;
@@ -174,6 +173,7 @@
         .inst-highlight { font-weight: bold; color: #d84315; }
         .formula-box { background-color: #fff; border: 1px dashed #ccc; padding: 8px; border-radius: 5px; margin-top: 8px; text-align: center; direction: ltr; font-weight: bold; color: #333;}
         
+        /* משתנים חיים בתוך הטקסט */
         .live-val { font-weight: bold; color: #1976D2; border-bottom: 1px solid #1976D2; padding: 0 2px; }
     </style>
 </head>
@@ -273,6 +273,7 @@
 
             if (!totalFlour || !hydration) return;
 
+            // חישובים
             const bigaFlour = totalFlour * 0.40;
             const bigaWater = bigaFlour * 0.50;
             const bigaYeast = bigaFlour * 0.0075; 
@@ -286,6 +287,7 @@
             const water80 = mainWaterRemaining * 0.80;
             const water20 = mainWaterRemaining * 0.20;
 
+            // עדכון נתונים בטבלאות
             document.getElementById('resBigaFlour').innerText = bigaFlour.toFixed(0) + 'g';
             document.getElementById('resBigaWater').innerText = bigaWater.toFixed(0) + 'ml';
             document.getElementById('resBigaYeast').innerText = bigaYeast.toFixed(2) + 'g';
@@ -295,6 +297,7 @@
             document.getElementById('resWater20').innerText = water20.toFixed(0) + 'ml';
             document.getElementById('resMainWaterTotal').innerText = mainWaterRemaining.toFixed(0);
 
+            // עדכון משתנים חיים בתוך הוראות ההכנה
             document.getElementById('dynBigaFlour').innerText = bigaFlour.toFixed(0) + 'g';
             document.getElementById('dynBigaWater').innerText = bigaWater.toFixed(0) + 'ml';
             document.getElementById('dynBigaYeast').innerText = bigaYeast.toFixed(2) + 'g';
@@ -303,6 +306,7 @@
             document.getElementById('dynMainFlour').innerText = mainFlour.toFixed(0) + 'g';
             document.getElementById('dynSalt').innerText = salt.toFixed(1) + 'g';
 
+            // הצגת אזור התוצאות והכפתור
             document.getElementById('resultsArea').style.display = 'block';
             document.getElementById('instBtn').style.display = 'block';
             document.getElementById('instructionsArea').style.display = 'none'; 
