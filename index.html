@@ -172,6 +172,9 @@
         .inst-title { font-weight: 800; color: #e65100; margin-bottom: 5px; display: block;}
         .inst-highlight { font-weight: bold; color: #d84315; }
         .formula-box { background-color: #fff; border: 1px dashed #ccc; padding: 8px; border-radius: 5px; margin-top: 8px; text-align: center; direction: ltr; font-weight: bold; color: #333;}
+        
+        /* משתנים חיים בתוך הטקסט */
+        .live-val { font-weight: bold; color: #1976D2; border-bottom: 1px solid #1976D2; padding: 0 2px; }
     </style>
 </head>
 <body>
@@ -223,39 +226,39 @@
                     </div>
                 </div>
 
-                <button id="instBtn" class="secondary-btn" onclick="toggleInstructions()">📖 איך מכינים? (הוראות מלאות)</button>
+                <button id="instBtn" class="secondary-btn" onclick="toggleInstructions()">📖 איך מכינים? (הוראות חיות)</button>
 
                 <div id="instructionsArea" class="instructions">
                     <div class="inst-step">
                         <span class="inst-title">שלב 1: הכנת הביגה (יום קודם)</span>
-                        מומלץ להשתמש בקמח מניטובה בצבע חום. תחילה, יש לחשב את טמפרטורת המים הנדרשת לביגה באמצעות הנוסחה הבאה:
+                        מומלץ להשתמש בקמח מניטובה בצבע חום. תחילה, יש לחשב את טמפרטורת המים הנדרשת לביגה באמצעות הנוסחה:
                         <div class="formula-box">55 - Room Temp - Flour Temp = Water Temp</div>
-                        מניחים את כמות הקמח המיועדת לביגה בקערה. מפוררים את כמות השמרים המחושבת לתוך מדד המים שחישבנו ומערבבים. לאחר מכן, מוזגים את הנוזל בהדרגה לקערת הקמח ומערבבים <span class="inst-highlight">אך ורק עד שאין יותר קמח זמין בקערה</span>. מכסים את הקערה בניילון נצמד, מחוררים קלות להכנסת אוויר, ומשהים בטמפרטורת החדר למשך שעה. לאחר מכן מעבירים למקרר ל-19 עד 24 שעות.
+                        מניחים את כמות הקמח המיועדת לביגה (<span class="live-val" id="dynBigaFlour">0g</span>) בקערה. מפוררים את כמות השמרים המחושבת (<span class="live-val" id="dynBigaYeast">0g</span>) לתוך מדד המים שחישבנו (<span class="live-val" id="dynBigaWater">0ml</span>) ומערבבים. לאחר מכן, מוזגים את הנוזל בהדרגה לקערת הקמח ומערבבים <span class="inst-highlight">אך ורק עד שאין יותר קמח זמין בקערה</span>. מכסים את הקערה בניילון נצמד, מחוררים קלות, ומשהים בטמפרטורת החדר לשעה. לאחר מכן מעבירים למקרר ל-19 עד 24 שעות.
                     </div>
                     
                     <div class="inst-step">
                         <span class="inst-title">שלב 2: פתיחת הביגה במיקסר</span>
-                        לאחר סיום המנוחה במקרר, מוציאים את הביגה, חותכים אותה לקוביות קטנות ומכניסים לקערת המיקסר. מוסיפים את החלק הראשון של המים (80%) ומפעילים את המיקסר על מהירות חלשה, רק עד לאיחוד מלא של הביגה עם המים.
+                        לאחר סיום המנוחה במקרר, מוציאים את הביגה, חותכים אותה לקוביות קטנות ומכניסים לקערת המיקסר. מוסיפים את החלק הראשון של המים (<span class="live-val" id="dynWater80">0ml</span>) ומפעילים את המיקסר על מהירות חלשה, עד לאיחוד מלא של הביגה עם המים.
                     </div>
 
                     <div class="inst-step">
                         <span class="inst-title">שלב 3: לישה ובסינאז'</span>
-                        מוסיפים את שארית הקמח של הבצק הסופי ומפעילים את המיקסר. ברגע שהבצק מתחיל להתייצב, עוברים לשלב הבסינאז' – הוספה הדרגתית ואיטית של שארית המים (20%).
+                        מוסיפים את שארית הקמח של הבצק הסופי (<span class="live-val" id="dynMainFlour">0g</span>) ומפעילים את המיקסר. ברגע שהבצק מתחיל להתייצב, עוברים לשלב הבסינאז' – הוספה הדרגתית של שארית המים (<span class="live-val" id="dynWater20">0ml</span>).
                     </div>
 
                     <div class="inst-step">
                         <span class="inst-title">שלב 4: הוספת מלח ופיתוח גלוטן</span>
-                        לקראת סוף תהליך הלישה, ממיסים את כמות המלח בשארית המים האחרונה, מוסיפים לבצק במיקסר, ומגבירים את מהירות הלישה. <span class="inst-highlight">דגש קריטי: יש להקפיד שטמפרטורת הבצק לא תעבור את ה-24 מעלות צלזיוס!</span>
+                        לקראת סוף הלישה, ממיסים את כמות המלח (<span class="live-val" id="dynSalt">0g</span>) בשארית המים האחרונה, מוסיפים לבצק, ומגבירים את מהירות הלישה. <span class="inst-highlight">דגש: לוודא שטמפרטורת הבצק לא עוברת 24 מעלות!</span>
                     </div>
 
                     <div class="inst-step">
                         <span class="inst-title">שלב 5: מנוחה, קיפולים והבשלה קרה</span>
-                        כשהבצק מוכן, משאירים אותו מכוסה בקערה למנוחה של רבע שעה. בעזרת ידיים משומנות קלות, מוציאים את הבצק ומבצעים סדרת קיפולים. מחזירים לקערה ומכניסים למקרר להבשלה של יום נוסף (24 שעות).
+                        משאירים את הבצק למנוחה של רבע שעה. בעזרת ידיים משומנות קלות, מוציאים את הבצק ומבצעים סדרת קיפולים. מחזירים לקערה ומכניסים למקרר להבשלה של יום נוסף (24 שעות).
                     </div>
 
                     <div class="inst-step">
-                        <span class="inst-title">שלב 6: שלב האפייה</span>
-                        לאחר ההבשלה, מחלקים את הבצק לכדורים. פותחים כל כדור לעלה, מורחים רוטב, מפזרים גבינה, ומכניסים לאפייה בטאבון Ooni Koda 2 Pro לקבלת תוצאה מושלמת.
+                        <span class="inst-title">שלב 6: שלב האפייה 🍕</span>
+                        לאחר ההבשלה, מחלקים את הבצק לכדורים. פותחים כל כדור לעלה, מוסיפים רוטב וגבינה, ומכניסים לאפייה בטאבון Ooni Koda 2 Pro לקבלת תוצאה מושלמת.
                     </div>
                 </div>
 
@@ -270,13 +273,11 @@
 
             if (!totalFlour || !hydration) return;
 
-            // חישוב ביגה
+            // חישובים
             const bigaFlour = totalFlour * 0.40;
             const bigaWater = bigaFlour * 0.50;
-            // התיקון שהתבקש: 0.75% מתוך קמח הביגה
             const bigaYeast = bigaFlour * 0.0075; 
 
-            // חישוב סופי
             const salt = totalFlour * 0.03;
             const totalWater = totalFlour * (hydration / 100);
             
@@ -286,29 +287,35 @@
             const water80 = mainWaterRemaining * 0.80;
             const water20 = mainWaterRemaining * 0.20;
 
-            // הצגת הנתונים
+            // עדכון נתונים בטבלאות
             document.getElementById('resBigaFlour').innerText = bigaFlour.toFixed(0) + 'g';
             document.getElementById('resBigaWater').innerText = bigaWater.toFixed(0) + 'ml';
             document.getElementById('resBigaYeast').innerText = bigaYeast.toFixed(2) + 'g';
-            
             document.getElementById('resMainFlour').innerText = mainFlour.toFixed(0) + 'g';
             document.getElementById('resSalt').innerText = salt.toFixed(1) + 'g';
-            
             document.getElementById('resWater80').innerText = water80.toFixed(0) + 'ml';
             document.getElementById('resWater20').innerText = water20.toFixed(0) + 'ml';
             document.getElementById('resMainWaterTotal').innerText = mainWaterRemaining.toFixed(0);
 
+            // עדכון משתנים חיים בתוך הוראות ההכנה
+            document.getElementById('dynBigaFlour').innerText = bigaFlour.toFixed(0) + 'g';
+            document.getElementById('dynBigaWater').innerText = bigaWater.toFixed(0) + 'ml';
+            document.getElementById('dynBigaYeast').innerText = bigaYeast.toFixed(2) + 'g';
+            document.getElementById('dynWater80').innerText = water80.toFixed(0) + 'ml';
+            document.getElementById('dynWater20').innerText = water20.toFixed(0) + 'ml';
+            document.getElementById('dynMainFlour').innerText = mainFlour.toFixed(0) + 'g';
+            document.getElementById('dynSalt').innerText = salt.toFixed(1) + 'g';
+
             // הצגת אזור התוצאות והכפתור
             document.getElementById('resultsArea').style.display = 'block';
             document.getElementById('instBtn').style.display = 'block';
-            document.getElementById('instructionsArea').style.display = 'none'; // לאפס אם חישבו מחדש
+            document.getElementById('instructionsArea').style.display = 'none'; 
         }
 
         function toggleInstructions() {
             const instArea = document.getElementById('instructionsArea');
             if(instArea.style.display === 'none' || instArea.style.display === '') {
                 instArea.style.display = 'block';
-                // גלילה חלקה למטה כדי לראות את כל ההוראות
                 setTimeout(() => {
                     window.scrollTo({ top: instArea.offsetTop, behavior: 'smooth' });
                 }, 100);
