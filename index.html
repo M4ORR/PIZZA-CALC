@@ -171,6 +171,7 @@
         .inst-step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .inst-title { font-weight: 800; color: #e65100; margin-bottom: 5px; display: block;}
         .inst-highlight { font-weight: bold; color: #d84315; }
+        .formula-box { background-color: #fff; border: 1px dashed #ccc; padding: 8px; border-radius: 5px; margin-top: 8px; text-align: center; direction: ltr; font-weight: bold; color: #333;}
     </style>
 </head>
 <body>
@@ -200,7 +201,7 @@
                     <div class="section-title">שלב 1: הכנת הביגה</div>
                     <div class="result-row"><span>קמח (40%):</span><span class="value" id="resBigaFlour">0g</span></div>
                     <div class="result-row"><span>מים (50% לביגה):</span><span class="value" id="resBigaWater">0ml</span></div>
-                    <div class="result-row"><span>שמרים (טריים/יבשים בהתאמה):</span><span class="value" id="resBigaYeast">0g</span></div>
+                    <div class="result-row"><span>שמרים (0.75%):</span><span class="value" id="resBigaYeast">0g</span></div>
                 </div>
 
                 <div class="section-card final">
@@ -226,33 +227,35 @@
 
                 <div id="instructionsArea" class="instructions">
                     <div class="inst-step">
-                        <span class="inst-title">שלב 1: הביגה (יום קודם)</span>
-                        מפוררים את השמרים לתוך המים של הביגה ומערבבים. שופכים על הקמח ומערבבים <span class="inst-highlight">רק עד לאיחוד</span> (לא ללוש, להשאיר במרקם פירורי וקרוע). משאירים 30-60 דקות בחוץ, ואז למקרר ל-19-24 שעות.
+                        <span class="inst-title">שלב 1: הכנת הביגה (יום קודם)</span>
+                        מומלץ להשתמש בקמח מניטובה בצבע חום. תחילה, יש לחשב את טמפרטורת המים הנדרשת לביגה באמצעות הנוסחה הבאה:
+                        <div class="formula-box">55 - Room Temp - Flour Temp = Water Temp</div>
+                        מניחים את כמות הקמח המיועדת לביגה בקערה. מפוררים את כמות השמרים המחושבת לתוך מדד המים שחישבנו ומערבבים. לאחר מכן, מוזגים את הנוזל בהדרגה לקערת הקמח ומערבבים <span class="inst-highlight">אך ורק עד שאין יותר קמח זמין בקערה</span>. מכסים את הקערה בניילון נצמד, מחוררים קלות להכנסת אוויר, ומשהים בטמפרטורת החדר למשך שעה. לאחר מכן מעבירים למקרר ל-19 עד 24 שעות.
                     </div>
                     
                     <div class="inst-step">
-                        <span class="inst-title">שלב 2: פתיחת הבצק (במיקסר)</span>
-                        מוציאים את הביגה, חותכים לקוביות קטנות ושמים במיקסר יחד עם ה-<span class="inst-highlight">80% מים</span> (רצוי קרים מאוד). מפעילים על מהירות נמוכה עד שהביגה מתפרקת למים חלביים.
+                        <span class="inst-title">שלב 2: פתיחת הביגה במיקסר</span>
+                        לאחר סיום המנוחה במקרר, מוציאים את הביגה, חותכים אותה לקוביות קטנות ומכניסים לקערת המיקסר. מוסיפים את החלק הראשון של המים (80%) ומפעילים את המיקסר על מהירות חלשה, רק עד לאיחוד מלא של הביגה עם המים.
                     </div>
 
                     <div class="inst-step">
                         <span class="inst-title">שלב 3: לישה ובסינאז'</span>
-                        מוסיפים את הקמח ולשים עד לאיחוד. מתחילים להוסיף את ה-<span class="inst-highlight">20% מים הנותרים</span> בזילופים איטיים. לתוך השלוק האחרון של המים מערבבים את המלח ומוסיפים. לשים במהירות בינונית עד לבצק חלק ומבריק. <span class="inst-highlight">חשוב: לא לעבור 24°C!</span>
+                        מוסיפים את שארית הקמח של הבצק הסופי ומפעילים את המיקסר. ברגע שהבצק מתחיל להתייצב, עוברים לשלב הבסינאז' – הוספה הדרגתית ואיטית של שארית המים (20%).
                     </div>
 
                     <div class="inst-step">
-                        <span class="inst-title">שלב 4: מנוחה וקיפולים</span>
-                        משאירים את הבצק למנוחה של 15 דק' בקערת המיקסר. מעבירים למשטח עבודה משומן קלות, עושים קיפולים (Stretch & Fold) לקבלת כדור מתוח וחלק, ונותנים עוד 20 דקות מנוחה מכוסה.
+                        <span class="inst-title">שלב 4: הוספת מלח ופיתוח גלוטן</span>
+                        לקראת סוף תהליך הלישה, ממיסים את כמות המלח בשארית המים האחרונה, מוסיפים לבצק במיקסר, ומגבירים את מהירות הלישה. <span class="inst-highlight">דגש קריטי: יש להקפיד שטמפרטורת הבצק לא תעבור את ה-24 מעלות צלזיוס!</span>
                     </div>
 
                     <div class="inst-step">
-                        <span class="inst-title">שלב 5: כדורים והתפחה (24 שעות)</span>
-                        מחלקים את הבצק לכדורים ושמים בקופסאות משומנות. מכניסים למקרר ל-24 שעות של הבשלה מלאה.
+                        <span class="inst-title">שלב 5: מנוחה, קיפולים והבשלה קרה</span>
+                        כשהבצק מוכן, משאירים אותו מכוסה בקערה למנוחה של רבע שעה. בעזרת ידיים משומנות קלות, מוציאים את הבצק ומבצעים סדרת קיפולים. מחזירים לקערה ומכניסים למקרר להבשלה של יום נוסף (24 שעות).
                     </div>
 
                     <div class="inst-step">
-                        <span class="inst-title">שלב 6: אפייה 🍕</span>
-                        מוציאים את הכדורים שעה וחצי-שעתיים לפני האפייה כדי שיגיעו לטמפרטורת החדר. פותחים על סמולינה, שמים תוספות, ולאפות ב-Ooni על חום מקסימלי!
+                        <span class="inst-title">שלב 6: שלב האפייה</span>
+                        לאחר ההבשלה, מחלקים את הבצק לכדורים. פותחים כל כדור לעלה, מורחים רוטב, מפזרים גבינה, ומכניסים לאפייה בטאבון Ooni Koda 2 Pro לקבלת תוצאה מושלמת.
                     </div>
                 </div>
 
