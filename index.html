@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#CE2B37">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Pizza Maor">
+
+    <title>מחשבון הפיצה של מאור</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --italy-green: #009246;
+            --italy-white: #ffffff;
+            --italy-red: #CE2B37;
+            --bg-color: #f4f4f4;
+            --text-dark: #2c3e50;
+        }
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .app-container {
+            background-color: var(--italy-white);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .header {
+            background-color: var(--italy-red);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--italy-green);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 25px 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 18px;
+            font-family: 'Rubik', sans-serif;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            background-color: #fafafa;
+            text-align: left;
+            direction: ltr;
+        }
+
+        input:focus {
+            border-color: var(--italy-green);
+            background-color: #fff;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 146, 70, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--italy-green);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 800;
+            font-family: 'Rubik', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0, 146, 70, 0.3);
+        }
+
+        button:hover {
+            background-color: #007a3a;
+        }
+
+        .results {
+            margin-top: 30px;
+            display: none;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-card {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+            border-right: 5px solid var(--italy-red);
+        }
+
+        .section-card.final {
+            border-right-color: var(--italy-green);
+        }
+
+        .section-title {
+            font-weight: 800;
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #ddd;
+            font-size: 15px;
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        .value {
+            font-weight: 800;
+            color: var(--italy-red);
+            direction: ltr;
+        }
+
+        .final .value {
+            color: var(--italy-green);
+        }
+
+        .water-split {
+            background-color: #e3f2fd;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 14px;
+            border-right: 3px solid #2196F3;
+        }
+
+        .water-split div {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .water-split .total-note {
+            font-size: 12px;
+            color: #555;
+            margin-top: 10px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 8px;
+            display: block;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="header">
+            <h1>🍕 מחשבון הפיצה של מאור</h1>
+            <p>מתכון ביגה 40% | מותאם ל-Ooni Koda 2 Pro</p>
+        </div>
+
+        <div class="content">
+            <div class="input-group">
+                <label for="flourInput">כמות קמח כוללת (גרם):</label>
+                <input type="number" id="flourInput" inputmode="numeric" placeholder="500" value="500">
+            </div>
+
+            <div class="input-group">
+                <label for="hydrationInput">אחוז הידרציה רצוי (%):</label>
+                <input type="number" id="hydrationInput" inputmode="decimal" placeholder="65" value="65">
+            </div>
+
+            <button onclick="calculateRecipe()">חשב כמויות 🤌</button>
+
+            <div class="results" id="resultsArea">
+                
+                <div class="section-card">
+                    <div class="section-title">שלב 1: הכנת הביגה</div>
+                    <div class="result-row">
+                        <span>קמח (40%):</span>
+                        <span class="value" id="resBigaFlour">0g</span>
+                    </div>
+                    <div class="result-row">
+                        <span>מים (50% לביגה):</span>
+                        <span class="value" id="resBigaWater">0ml</span>
+                    </div>
+                    <div class="result-row">
+                        <span>שמרים יבשים:</span>
+                        <span class="value" id="resBigaYeast">0g</span>
+                    </div>
+                </div>
+
+                <div class="section-card final">
+                    <div class="section-title">שלב 2: הבצק הסופי</div>
+                    <div class="result-row">
+                        <span>הביגה מהמקרר:</span>
+                        <span class="value" id="resBigaTotal">0g</span>
+                    </div>
+                    <div class="result-row">
+                        <span>קמח להוספה:</span>
+                        <span class="value" id="resMainFlour">0g</span>
+                    </div>
+                    <div class="result-row">
+                        <span>מלח (3%):</span>
+                        <span class="value" id="resSalt">0g</span>
+                    </div>
+                    
+                    <div class="water-split">
+                        <strong>💧 שלבי הוספת המים:</strong>
+                        <div style="margin-top:10px;">
+                            <span>1. פתיחת הביגה (80%):</span>
+                            <span class="value" style="color:#1976D2" id="resWater80">0ml</span>
+                        </div>
+                        <div>
+                            <span>2. בסינאז' עם המלח (20%):</span>
+                            <span class="value" style="color:#1976D2" id="resWater20">0ml</span>
+                        </div>
+                        <span class="total-note">סה"כ מים להוספה בשלב זה: <strong id="resMainWaterTotal">0</strong> מ"ל</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateRecipe() {
+            const totalFlour = parseFloat(document.getElementById('flourInput').value);
+            const hydration = parseFloat(document.getElementById('hydrationInput').value);
+
+            if (!totalFlour || !hydration || totalFlour <= 0 || hydration <= 0) {
+                alert("מאור, תכניס מספרים תקינים 🤌");
+                return;
+            }
+
+            const bigaFlour = totalFlour * 0.40;
+            const bigaWater = bigaFlour * 0.50;
+            const bigaYeast = bigaFlour * 0.0025; 
+
+            const salt = totalFlour * 0.03;
+            const totalWater = totalFlour * (hydration / 100);
+            
+            const mainFlour = totalFlour - bigaFlour;
+            const mainWaterRemaining = totalWater - bigaWater;
+            
+            const water80 = mainWaterRemaining * 0.80;
+            const water20 = mainWaterRemaining * 0.20;
+
+            document.getElementById('resBigaFlour').innerText = bigaFlour.toFixed(0) + 'g';
+            document.getElementById('resBigaWater').innerText = bigaWater.toFixed(0) + 'ml';
+            document.getElementById('resBigaYeast').innerText = bigaYeast.toFixed(1) + 'g';
+            
+            document.getElementById('resBigaTotal').innerText = (bigaFlour + bigaWater + bigaYeast).toFixed(1) + 'g';
+            document.getElementById('resMainFlour').innerText = mainFlour.toFixed(0) + 'g';
+            document.getElementById('resSalt').innerText = salt.toFixed(1) + 'g';
+            
+            document.getElementById('resWater80').innerText = water80.toFixed(0) + 'ml';
+            document.getElementById('resWater20').innerText = water20.toFixed(0) + 'ml';
+            document.getElementById('resMainWaterTotal').innerText = mainWaterRemaining.toFixed(0);
+
+            document.getElementById('resultsArea').style.display = 'block';
+            
+            // גלילה חלקה למטה בטלפון
+            setTimeout(() => {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            }, 100);
+        }
+    </script>
+</body>
+</html>
