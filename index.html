@@ -10,7 +10,7 @@
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍕</text></svg>">
 
-    <title>PIZZA CALC🍕</title>
+    <title>PIZZA CALC</title>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
@@ -109,7 +109,6 @@
         }
 
         .section-card.final { border-right-color: var(--italy-green); }
-        .section-card.balls { border-right-color: #ff9800; background-color: #fff9f0; }
 
         .section-title { font-weight: 800; font-size: 15px; margin-bottom: 12px; color: var(--text-dark); }
 
@@ -157,11 +156,6 @@
                 <input type="number" id="hydrationInput" value="65">
             </div>
 
-            <div class="input-group">
-                <label>משקל כדור פיצה רצוי (גרם):</label>
-                <input type="number" id="ballWeightInput" value="280">
-            </div>
-
             <button onclick="calculateRecipe()">חשב כמויות 🤌</button>
 
             <div class="results" id="resultsArea">
@@ -192,12 +186,6 @@
                     </div>
                 </div>
 
-                <div class="section-card balls">
-                    <div class="section-title">חלוקה לכדורים</div>
-                    <div class="result-row"><span>משקל בצק כולל:</span><span class="value" style="color:#ff9800" id="resTotalWeight">0g</span></div>
-                    <div class="result-row"><span>כמות כדורים:</span><span class="value" style="color:#ff9800" id="resBallCount">0</span></div>
-                </div>
-
             </div>
         </div>
     </div>
@@ -206,7 +194,6 @@
         function calculateRecipe() {
             const totalFlour = parseFloat(document.getElementById('flourInput').value);
             const hydration = parseFloat(document.getElementById('hydrationInput').value);
-            const ballWeight = parseFloat(document.getElementById('ballWeightInput').value);
 
             if (!totalFlour || !hydration) return;
 
@@ -223,6 +210,19 @@
             const water80 = mainWaterRemaining * 0.80;
             const water20 = mainWaterRemaining * 0.20;
 
-            const totalDoughWeight = totalFlour + totalWater + salt + bigaYeast;
-
             document.getElementById('resBigaFlour').innerText = bigaFlour.toFixed(0) + 'g';
+            document.getElementById('resBigaWater').innerText = bigaWater.toFixed(0) + 'ml';
+            document.getElementById('resBigaYeast').innerText = bigaYeast.toFixed(1) + 'g';
+            
+            document.getElementById('resMainFlour').innerText = mainFlour.toFixed(0) + 'g';
+            document.getElementById('resSalt').innerText = salt.toFixed(1) + 'g';
+            
+            document.getElementById('resWater80').innerText = water80.toFixed(0) + 'ml';
+            document.getElementById('resWater20').innerText = water20.toFixed(0) + 'ml';
+            document.getElementById('resMainWaterTotal').innerText = mainWaterRemaining.toFixed(0);
+
+            document.getElementById('resultsArea').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
