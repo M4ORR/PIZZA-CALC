@@ -59,7 +59,36 @@
         .header h1 { margin: 0; font-size: 24px; font-weight: 800; }
         .header p { margin: 5px 0 0 0; font-size: 13px; opacity: 0.9; }
 
-        .content { padding: 25px 20px; }
+        /* כפתורי בחירת שיטה (Tabs) */
+        .method-tabs {
+            display: flex;
+            background-color: #eee;
+            padding: 5px;
+            border-radius: 12px;
+            margin: 20px 20px 10px 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: none;
+            font-family: 'Rubik', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            color: #7f8c8d;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background-color: var(--italy-green);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .content { padding: 10px 20px 25px 20px; }
 
         .input-group { margin-bottom: 15px; }
 
@@ -70,7 +99,7 @@
             font-size: 14px;
         }
 
-        input {
+        input, select {
             width: 100%;
             padding: 12px;
             border: 2px solid #e0e0e0;
@@ -82,9 +111,9 @@
             direction: ltr;
         }
 
-        input:focus { border-color: var(--italy-green); outline: none; background-color: #fff; }
+        input:focus, select:focus { border-color: var(--italy-green); outline: none; background-color: #fff; }
 
-        button {
+        button.calc-btn {
             width: 100%;
             padding: 16px;
             background-color: var(--italy-green);
@@ -98,13 +127,21 @@
             transition: background-color 0.3s;
         }
 
-        button:active { transform: scale(0.98); }
+        button.calc-btn:active { transform: scale(0.98); }
 
         .secondary-btn {
             background-color: #34495e;
             font-size: 16px;
             margin-top: 15px;
             display: none;
+            width: 100%;
+            padding: 16px;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            font-family: 'Rubik', sans-serif;
         }
 
         .secondary-btn:hover { background-color: #2c3e50; }
@@ -147,7 +184,19 @@
         }
 
         .water-split div { display: flex; justify-content: space-between; margin-bottom: 5px; }
-        .total-note { font-size: 11px; color: #555; display: block; text-align: center; margin-top: 5px; }
+        .total-note { font-size: 11px; color: #555; display: block; text-align: center; margin-top: 8px; font-weight: bold;}
+
+        .yeast-info {
+            font-size: 12px;
+            color: #d84315;
+            background: #ffe0b2;
+            padding: 6px;
+            border-radius: 6px;
+            text-align: center;
+            margin-top: 8px;
+            display: block;
+            font-weight: bold;
+        }
 
         /* עיצוב להוראות ההכנה */
         .instructions {
@@ -182,7 +231,12 @@
     <div class="app-container">
         <div class="header">
             <h1>🍕 PIZZA CALC 🍕</h1>
-            <p>ביגה 40% | מותאם ל-Ooni Koda 2 Pro</p>
+            <p>מותאם ל-Ooni Koda 2 Pro</p>
+        </div>
+
+        <div class="method-tabs">
+            <button id="btnBiga" class="tab-btn active" onclick="switchMethod('biga')">שיטת ביגה</button>
+            <button id="btnPoolish" class="tab-btn" onclick="switchMethod('poolish')">שיטת פוליש</button>
         </div>
 
         <div class="content">
@@ -196,15 +250,26 @@
                 <input type="number" id="hydrationInput" value="65">
             </div>
 
-            <button onclick="calculateRecipe()">חשב כמויות 🤌</button>
+            <div id="bigaOptions" class="input-group">
+                <label>זמן התפחה במקרר לביגה:</label>
+                <select id="bigaTimeSelect">
+                    <option value="1">24 שעות (1% שמרים)</option>
+                    <option value="0.75" selected>48 שעות (0.75% שמרים)</option>
+                    <option value="0.5">72 שעות (0.5% שמרים)</option>
+                </select>
+            </div>
+
+            <button class="calc-btn" onclick="calculateRecipe()">חשב כמויות 🤌</button>
 
             <div class="results" id="resultsArea">
                 
                 <div class="section-card">
-                    <div class="section-title">שלב 1: הכנת הביגה</div>
-                    <div class="result-row"><span>קמח (40%):</span><span class="value" id="resBigaFlour">0g</span></div>
-                    <div class="result-row"><span>מים (50% לביגה):</span><span class="value" id="resBigaWater">0ml</span></div>
-                    <div class="result-row"><span>שמרים (0.75%):</span><span class="value" id="resBigaYeast">0g</span></div>
+                    <div class="section-title" id="stage1Title">שלב 1: הכנת הביגה</div>
+                    <div class="result-row"><span>קמח:</span><span class="value" id="resPrefFlour">0g</span></div>
+                    <div class="result-row"><span>מים:</span><span class="value" id="resPrefWater">0ml</span></div>
+                    <div class="result-row"><span>שמרים יבשים:</span><span class="value" id="resPrefYeastDry">0g</span></div>
+                    <div class="result-row"><span>שמרים טריים:</span><span class="value" id="resPrefYeastFresh">0g</span></div>
+                    <span class="yeast-info">💡 נוסחת המרה: 1ג' יבשים = 3ג' טריים</span>
                 </div>
 
                 <div class="section-card final">
@@ -213,52 +278,78 @@
                     <div class="result-row"><span>מלח (3%):</span><span class="value" id="resSalt">0g</span></div>
                     
                     <div class="water-split">
-                        <strong>💧 סדר הוספת המים:</strong>
+                        <strong>💧 סדר הוספת המים (בטמפ' 4°C-7°C):</strong>
                         <div style="margin-top:8px;">
-                            <span>1. פתיחת הביגה (80%):</span>
+                            <span>1. שלב ראשון (80%):</span>
                             <span class="value" style="color:#1976D2" id="resWater80">0ml</span>
                         </div>
                         <div>
                             <span>2. בסינאז' עם המלח (20%):</span>
                             <span class="value" style="color:#1976D2" id="resWater20">0ml</span>
                         </div>
-                        <span class="total-note">סה"כ מים להוספה כעת: <strong id="resMainWaterTotal">0</strong> מ"ל</span>
+                        <span class="total-note">סה"כ מים לבצק הסופי: <span id="resMainWaterTotal" style="color:#1976D2; font-size:14px;">0</span> מ"ל</span>
                     </div>
                 </div>
 
                 <button id="instBtn" class="secondary-btn" onclick="toggleInstructions()">📖 איך מכינים? (הוראות חיות)</button>
 
-                <div id="instructionsArea" class="instructions">
+                <div id="instBiga" class="instructions">
                     <div class="inst-step">
                         <span class="inst-title">שלב 1: הכנת הביגה (יום קודם)</span>
-                        מומלץ להשתמש בקמח מניטובה בצבע חום. תחילה, יש לחשב את טמפרטורת המים הנדרשת לביגה באמצעות הנוסחה:
-                        <div class="formula-box">55 - Room Temp - Flour Temp = Water Temp</div>
-                        מניחים את כמות הקמח המיועדת לביגה (<span class="live-val" id="dynBigaFlour">0g</span>) בקערה. מפוררים את כמות השמרים המחושבת (<span class="live-val" id="dynBigaYeast">0g</span>) לתוך מדד המים שחישבנו (<span class="live-val" id="dynBigaWater">0ml</span>) ומערבבים. לאחר מכן, מוזגים את הנוזל בהדרגה לקערת הקמח ומערבבים <span class="inst-highlight">אך ורק עד שאין יותר קמח זמין בקערה</span>. מכסים את הקערה בניילון נצמד, מחוררים קלות, ומשהים בטמפרטורת החדר לשעה. לאחר מכן מעבירים למקרר ל-19 עד 24 שעות.
+                        יש להשתמש בקמח <span class="inst-highlight">קאפוטו מניטובה (Manitoba Oro)</span> המכיל W360/380. מחשבים את טמפרטורת המים לביגה:
+                        <div class="formula-box">55 - טמפ' חדר - טמפ' קמח = טמפ' מים</div>
+                        מניחים את הקמח לביגה (<span class="live-val dynPrefFlour">0g</span>) בקערה. בוחרים את סוג השמרים שרוצים (<span class="live-val dynPrefYeastDry">0g</span> יבשים <strong>או</strong> <span class="live-val dynPrefYeastFresh">0g</span> טריים), מפוררים לתוך המים שחישבנו (<span class="live-val dynPrefWater">0ml</span>) ומערבבים.
+                        מוזגים בהדרגה לקערת הקמח ומערבבים <span class="inst-highlight">אך ורק עד שאין יותר קמח זמין בקערה</span>. מכסים בניילון נצמד עם חורים, משהים שעה בטמפ' חדר, ואז למקרר לזמן ההתפחה שבחרתם.
                     </div>
                     
                     <div class="inst-step">
-                        <span class="inst-title">שלב 2: פתיחת הביגה במיקסר</span>
-                        לאחר סיום המנוחה במקרר, מוציאים את הביגה, חותכים אותה לקוביות קטנות ומכניסים לקערת המיקסר. מוסיפים את החלק הראשון של המים (<span class="live-val" id="dynWater80">0ml</span>) ומפעילים את המיקסר על מהירות חלשה, עד לאיחוד מלא של הביגה עם המים.
+                        <span class="inst-title">שלב 2: פתיחת הביגה</span>
+                        <span class="inst-highlight">חשוב:</span> להוציא את הביגה מהמקרר ולהשאיר אותה בטמפרטורת החדר על השיש למשך <span class="inst-highlight">30-45 דקות</span>.
+                        לאחר מכן, חותכים אותה לקוביות ומכניסים למיקסר יחד עם החלק הראשון של המים (<span class="live-val dynWater80">0ml</span>) שחייבים להיות בטמפרטורה של 4°C עד 7°C. מפעילים עד לאיחוד מלא.
                     </div>
 
                     <div class="inst-step">
                         <span class="inst-title">שלב 3: לישה ובסינאז'</span>
-                        מוסיפים את שארית הקמח של הבצק הסופי (<span class="live-val" id="dynMainFlour">0g</span>) ומפעילים את המיקסר. ברגע שהבצק מתחיל להתייצב, עוברים לשלב הבסינאז' – הוספה הדרגתית של שארית המים (<span class="live-val" id="dynWater20">0ml</span>).
+                        מוסיפים את שארית הקמח מסוג <span class="inst-highlight">קאפוטו נובולה סגול (Nuvola)</span> (<span class="live-val dynMainFlour">0g</span>). ברגע שהבצק מתייצב, מתחילים להוסיף בהדרגה את שארית המים הקרים (<span class="live-val dynWater20">0ml</span>).
                     </div>
 
                     <div class="inst-step">
-                        <span class="inst-title">שלב 4: הוספת מלח ופיתוח גלוטן</span>
-                        לקראת סוף הלישה, ממיסים את כמות המלח (<span class="live-val" id="dynSalt">0g</span>) בשארית המים האחרונה, מוסיפים לבצק, ומגבירים את מהירות הלישה. <span class="inst-highlight">דגש: לוודא שטמפרטורת הבצק לא עוברת 24 מעלות!</span>
+                        <span class="inst-title">שלב 4: מלח ופיתוח גלוטן</span>
+                        לקראת סוף הלישה, ממיסים את המלח (<span class="live-val dynSalt">0g</span>) בשארית המים האחרונה, מוסיפים לבצק ומגבירים מהירות. <span class="inst-highlight">דגש: לוודא שטמפרטורת הבצק לא עוברת 24 מעלות!</span>
                     </div>
 
                     <div class="inst-step">
                         <span class="inst-title">שלב 5: מנוחה, קיפולים והבשלה קרה</span>
-                        משאירים את הבצק למנוחה של רבע שעה. בעזרת ידיים משומנות קלות, מוציאים את הבצק ומבצעים סדרת קיפולים. מחזירים לקערה ומכניסים למקרר להבשלה של יום נוסף (24 שעות).
+                        משאירים את הבצק למנוחה של רבע שעה. מבצעים סדרת קיפולים. מיד לאחר מכן מחלקים את הבצק לכדורים שווים של <span class="inst-highlight">230-280 גרם</span>, סוגרים בקופסאות התפחה ומכניסים למקרר לעוד 19-24 שעות.
+                    </div>
+                </div>
+
+                <div id="instPoolish" class="instructions">
+                    <div class="inst-step">
+                        <span class="inst-title">שלב 1: הכנת הפוליש (יחס 1:1)</span>
+                        קמח לפוליש יכול להיות <span class="inst-highlight">קאפוטו נובולה</span> או <span class="inst-highlight">קאפוטו מניטובה</span>. 
+                        לוקחים כלי, שמים בו את מי הפוליש (<span class="live-val dynPrefWater">0ml</span>) ומוסיפים את השמרים: <span class="live-val dynPrefYeastDry">0g</span> יבשים <strong>או</strong> <span class="live-val dynPrefYeastFresh">0g</span> טריים. 
+                        מערבבים טוב טוב עד שהשמרים נמסים במים. מוסיפים את הקמח (<span class="live-val dynPrefFlour">0g</span>) ושוב מערבבים היטב עד לקבלת מרקם של פוליש (כמו בלילת פנקייק סמיכה).
                     </div>
 
                     <div class="inst-step">
-                        <span class="inst-title">שלב 6: שלב האפייה 🍕</span>
-                        לאחר ההבשלה, מחלקים את הבצק לכדורים. פותחים כל כדור לעלה, מוסיפים רוטב וגבינה, ומכניסים לאפייה בטאבון Ooni Koda 2 Pro לקבלת תוצאה מושלמת.
+                        <span class="inst-title">שלב 2: התפחת הפוליש</span>
+                        סוגרים את הכלי ומכניסים למקרר להתפחה של <span class="inst-highlight">12 עד 16 שעות</span>.
+                    </div>
+
+                    <div class="inst-step">
+                        <span class="inst-title">שלב 3: הבצק הסופי (במיקסר)</span>
+                        לאחר המנוחה, מעבירים את הפוליש לקערת המיקסר. מוסיפים את החלק הראשון של המים (<span class="live-val dynWater80">0ml</span>) שחייבים להיות קרים בטמפרטורה של 4°C עד 7°C, ומערבבים מעט. מוסיפים את שארית הקמח (<span class="live-val dynMainFlour">0g</span>) ומתחילים ללוש.
+                    </div>
+
+                    <div class="inst-step">
+                        <span class="inst-title">שלב 4: בסינאז' ומלח</span>
+                        כשהבצק מתגבש, מתחילים להוסיף לאט את שארית המים הקרים (<span class="live-val dynWater20">0ml</span>). בשלוק המים האחרון ממיסים את המלח (<span class="live-val dynSalt">0g</span>) ומוסיפים. <span class="inst-highlight">חובה לוודא שהבצק לא עובר 24°C!</span>
+                    </div>
+
+                    <div class="inst-step">
+                        <span class="inst-title">שלב 5: מנוחה, קיפולים והבשלה קרה</span>
+                        לאחר הלישה נותנים לבצק לנוח כרבע שעה, עושים סדרת קיפולים, ומחלקים אותו לכדורים של <span class="inst-highlight">230-280 גרם</span>. מכניסים לקופסאות ולמקרר להבשלה של <span class="inst-highlight">24 שעות</span> לפני האפייה.
                     </div>
                 </div>
 
@@ -267,60 +358,127 @@
     </div>
 
     <script>
+        let currentMethod = 'biga'; // מצב ברירת מחדל
+
+        function switchMethod(method) {
+            currentMethod = method;
+            
+            // עדכון עיצוב הכפתורים למעלה
+            document.getElementById('btnBiga').classList.remove('active');
+            document.getElementById('btnPoolish').classList.remove('active');
+            
+            if(method === 'biga') {
+                document.getElementById('btnBiga').classList.add('active');
+                document.getElementById('bigaOptions').style.display = 'block';
+                document.getElementById('stage1Title').innerText = "שלב 1: הכנת הביגה";
+            } else {
+                document.getElementById('btnPoolish').classList.add('active');
+                document.getElementById('bigaOptions').style.display = 'none';
+                document.getElementById('stage1Title').innerText = "שלב 1: הכנת הפוליש (יחס 1:1)";
+            }
+
+            // איפוס תצוגת התוצאות
+            document.getElementById('resultsArea').style.display = 'none';
+            document.getElementById('instBiga').style.display = 'none';
+            document.getElementById('instPoolish').style.display = 'none';
+            document.getElementById('instBtn').style.display = 'none';
+        }
+
         function calculateRecipe() {
             const totalFlour = parseFloat(document.getElementById('flourInput').value);
             const hydration = parseFloat(document.getElementById('hydrationInput').value);
 
             if (!totalFlour || !hydration) return;
 
-            // חישובים
-            const bigaFlour = totalFlour * 0.40;
-            const bigaWater = bigaFlour * 0.50;
-            const bigaYeast = bigaFlour * 0.0075; 
+            let prefFlour, prefWater, yeastDry, yeastFresh;
 
+            if (currentMethod === 'biga') {
+                prefFlour = totalFlour * 0.40;
+                prefWater = prefFlour * 0.50;
+                
+                // שליפת אחוז השמרים לפי בחירת זמן ההתפחה
+                const yeastPercent = parseFloat(document.getElementById('bigaTimeSelect').value);
+                yeastDry = prefFlour * (yeastPercent / 100);
+            } 
+            else if (currentMethod === 'poolish') {
+                // פוליש 30% מסך הקמח, יחס מים וקמח 1:1
+                prefFlour = totalFlour * 0.30; 
+                prefWater = prefFlour; 
+                
+                // 1 גרם שמרים יבשים על כל קילו קמח בסך הכל
+                yeastDry = totalFlour * 0.001; 
+            }
+
+            // המרה לשמרים טריים לפי יחס 1:3 בשתי השיטות
+            yeastFresh = yeastDry * 3;
+
+            // חישובי הבצק הסופי
             const salt = totalFlour * 0.03;
             const totalWater = totalFlour * (hydration / 100);
             
-            const mainFlour = totalFlour - bigaFlour;
-            const mainWaterRemaining = totalWater - bigaWater;
+            const mainFlour = totalFlour - prefFlour;
+            const mainWaterRemaining = totalWater - prefWater;
             
             const water80 = mainWaterRemaining * 0.80;
             const water20 = mainWaterRemaining * 0.20;
 
             // עדכון נתונים בטבלאות
-            document.getElementById('resBigaFlour').innerText = bigaFlour.toFixed(0) + 'g';
-            document.getElementById('resBigaWater').innerText = bigaWater.toFixed(0) + 'ml';
-            document.getElementById('resBigaYeast').innerText = bigaYeast.toFixed(2) + 'g';
+            document.getElementById('resPrefFlour').innerText = prefFlour.toFixed(0) + 'g';
+            document.getElementById('resPrefWater').innerText = prefWater.toFixed(0) + 'ml';
+            document.getElementById('resPrefYeastDry').innerText = yeastDry.toFixed(2) + 'g';
+            document.getElementById('resPrefYeastFresh').innerText = yeastFresh.toFixed(2) + 'g';
+            
             document.getElementById('resMainFlour').innerText = mainFlour.toFixed(0) + 'g';
             document.getElementById('resSalt').innerText = salt.toFixed(1) + 'g';
+            
             document.getElementById('resWater80').innerText = water80.toFixed(0) + 'ml';
             document.getElementById('resWater20').innerText = water20.toFixed(0) + 'ml';
             document.getElementById('resMainWaterTotal').innerText = mainWaterRemaining.toFixed(0);
 
-            // עדכון משתנים חיים בתוך הוראות ההכנה
-            document.getElementById('dynBigaFlour').innerText = bigaFlour.toFixed(0) + 'g';
-            document.getElementById('dynBigaWater').innerText = bigaWater.toFixed(0) + 'ml';
-            document.getElementById('dynBigaYeast').innerText = bigaYeast.toFixed(2) + 'g';
-            document.getElementById('dynWater80').innerText = water80.toFixed(0) + 'ml';
-            document.getElementById('dynWater20').innerText = water20.toFixed(0) + 'ml';
-            document.getElementById('dynMainFlour').innerText = mainFlour.toFixed(0) + 'g';
-            document.getElementById('dynSalt').innerText = salt.toFixed(1) + 'g';
+            // עדכון משתנים חיים בתוך הוראות ההכנה (מעדכן את שתי השיטות במקביל)
+            updateLiveValues('dynPrefFlour', prefFlour.toFixed(0) + 'g');
+            updateLiveValues('dynPrefWater', prefWater.toFixed(0) + 'ml');
+            updateLiveValues('dynPrefYeastDry', yeastDry.toFixed(2) + 'g');
+            updateLiveValues('dynPrefYeastFresh', yeastFresh.toFixed(2) + 'g');
+            updateLiveValues('dynMainFlour', mainFlour.toFixed(0) + 'g');
+            updateLiveValues('dynWater80', water80.toFixed(0) + 'ml');
+            updateLiveValues('dynWater20', water20.toFixed(0) + 'ml');
+            updateLiveValues('dynSalt', salt.toFixed(1) + 'g');
 
             // הצגת אזור התוצאות והכפתור
             document.getElementById('resultsArea').style.display = 'block';
             document.getElementById('instBtn').style.display = 'block';
-            document.getElementById('instructionsArea').style.display = 'none'; 
+            
+            // הסתרת ההוראות במקרה שעושים חישוב מחדש
+            document.getElementById('instBiga').style.display = 'none';
+            document.getElementById('instPoolish').style.display = 'none'; 
+        }
+
+        // פונקציית עזר לעדכון מספר אלמנטים עם אותו Class
+        function updateLiveValues(className, value) {
+            const elements = document.getElementsByClassName(className);
+            for(let i = 0; i < elements.length; i++) {
+                elements[i].innerText = value;
+            }
         }
 
         function toggleInstructions() {
-            const instArea = document.getElementById('instructionsArea');
-            if(instArea.style.display === 'none' || instArea.style.display === '') {
-                instArea.style.display = 'block';
+            const instBiga = document.getElementById('instBiga');
+            const instPoolish = document.getElementById('instPoolish');
+            
+            const activeInst = currentMethod === 'biga' ? instBiga : instPoolish;
+            const otherInst = currentMethod === 'biga' ? instPoolish : instBiga;
+
+            // תמיד להסתיר את ההוראות של השיטה השנייה
+            otherInst.style.display = 'none'; 
+
+            if(activeInst.style.display === 'none' || activeInst.style.display === '') {
+                activeInst.style.display = 'block';
                 setTimeout(() => {
-                    window.scrollTo({ top: instArea.offsetTop, behavior: 'smooth' });
+                    window.scrollTo({ top: activeInst.offsetTop, behavior: 'smooth' });
                 }, 100);
             } else {
-                instArea.style.display = 'none';
+                activeInst.style.display = 'none';
             }
         }
     </script>
