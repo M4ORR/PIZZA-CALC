@@ -79,13 +79,19 @@
             color: #7f8c8d;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background-color: #e0e0e0;
+            transform: translateY(-1px);
         }
 
         .tab-btn.active {
             background-color: var(--italy-green);
             color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transform: translateY(-1px);
         }
 
         .content { padding: 10px 20px 25px 20px; }
@@ -97,6 +103,7 @@
             margin-bottom: 6px;
             font-weight: 600;
             font-size: 14px;
+            transition: color 0.3s;
         }
 
         input, select {
@@ -109,9 +116,16 @@
             box-sizing: border-box;
             background-color: #fafafa;
             direction: ltr;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
         }
 
-        input:focus, select:focus { border-color: var(--italy-green); outline: none; background-color: #fff; }
+        input:focus, select:focus { 
+            border-color: var(--italy-green); 
+            outline: none; 
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(0, 146, 70, 0.15);
+            transform: translateY(-2px);
+        }
 
         button.calc-btn {
             width: 100%;
@@ -124,10 +138,20 @@
             font-weight: 800;
             cursor: pointer;
             margin-top: 10px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 146, 70, 0.2);
         }
 
-        button.calc-btn:active { transform: scale(0.98); }
+        button.calc-btn:hover {
+            background-color: #007a3a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 146, 70, 0.3);
+        }
+
+        button.calc-btn:active { 
+            transform: translateY(1px) scale(0.98); 
+            box-shadow: 0 2px 4px rgba(0, 146, 70, 0.2);
+        }
 
         .secondary-btn {
             background-color: #34495e;
@@ -142,11 +166,27 @@
             font-weight: 800;
             cursor: pointer;
             font-family: 'Rubik', sans-serif;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(52, 73, 94, 0.2);
         }
 
-        .results { margin-top: 25px; display: none; animation: slideUp 0.4s ease-out; }
+        .secondary-btn:hover { 
+            background-color: #2c3e50;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(52, 73, 94, 0.3);
+        }
 
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; } }
+        .secondary-btn:active {
+            transform: translateY(1px) scale(0.98);
+            box-shadow: 0 2px 4px rgba(52, 73, 94, 0.2);
+        }
+
+        .results { margin-top: 25px; display: none; animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+
+        @keyframes slideUp { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
 
         .section-card {
             background-color: #f8f9fa;
@@ -154,6 +194,12 @@
             padding: 15px;
             margin-bottom: 15px;
             border-right: 5px solid var(--italy-red);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
         }
 
         .section-card.final { border-right-color: var(--italy-green); }
@@ -179,6 +225,11 @@
             margin-top: 15px;
             font-size: 13px;
             border-right: 3px solid #2196F3;
+            transition: transform 0.3s ease;
+        }
+
+        .water-split:hover {
+            transform: scale(1.02);
         }
 
         .water-split div { display: flex; justify-content: space-between; margin-bottom: 5px; }
@@ -194,6 +245,12 @@
             color: #d84315;
             font-weight: bold;
             border: 1px solid #ffcc80;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .yeast-choice:hover {
+            transform: scale(1.02);
+            background: #ffe0b2;
         }
 
         .instructions {
@@ -203,7 +260,7 @@
             padding: 20px;
             border: 2px solid #ffcc80;
             display: none;
-            animation: slideUp 0.4s ease-out;
+            animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             font-size: 14px;
             line-height: 1.6;
         }
@@ -212,13 +269,18 @@
             margin-bottom: 15px;
             padding-bottom: 15px;
             border-bottom: 1px solid #ffe0b2;
+            transition: transform 0.2s ease;
+        }
+
+        .inst-step:hover {
+            transform: translateX(-5px);
         }
 
         .inst-step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .inst-title { font-weight: 800; color: #e65100; margin-bottom: 5px; display: block;}
         .inst-highlight { font-weight: bold; color: #d84315; }
         .formula-box { background-color: #fff; border: 1px dashed #ccc; padding: 10px; border-radius: 5px; margin-top: 8px; text-align: center; direction: ltr; font-weight: bold; color: #333; font-size: 13px;}
-        .live-val { font-weight: bold; color: #1976D2; border-bottom: 1px solid #1976D2; padding: 0 2px; }
+        .live-val { font-weight: bold; color: #1976D2; border-bottom: 1px solid #1976D2; padding: 0 2px; transition: color 0.3s;}
     </style>
 </head>
 <body>
@@ -458,7 +520,12 @@
             updateLiveValues('dynWater20', water20.toFixed(0) + 'ml');
             updateLiveValues('dynMainWaterRem', mainWaterRem.toFixed(0) + 'ml'); // עבור הפוליש
 
-            document.getElementById('resultsArea').style.display = 'block';
+            // הפעלת האנימציה על ידי הסרה והחזרה של האלמנט כדי לאתחל את ה-Keyframes
+            const resultsArea = document.getElementById('resultsArea');
+            resultsArea.style.display = 'none';
+            void resultsArea.offsetWidth; // Trigger reflow
+            resultsArea.style.display = 'block';
+            
             document.getElementById('instBtn').style.display = 'block';
             document.getElementById('instBiga').style.display = 'none';
             document.getElementById('instPoolish').style.display = 'none';
@@ -474,10 +541,15 @@
             const act = currentMethod === 'biga' ? b : p;
             const oth = currentMethod === 'biga' ? p : b;
             oth.style.display = 'none';
+            
             if(act.style.display === 'none' || act.style.display === '') {
                 act.style.display = 'block';
-                setTimeout(() => window.scrollTo({ top: act.offsetTop, behavior: 'smooth' }), 100);
-            } else act.style.display = 'none';
+                // Trigger reflow לאנימציה חלקה
+                void act.offsetWidth;
+                setTimeout(() => window.scrollTo({ top: act.offsetTop - 20, behavior: 'smooth' }), 50);
+            } else {
+                act.style.display = 'none';
+            }
         }
     </script>
 </body>
