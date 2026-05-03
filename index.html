@@ -341,7 +341,7 @@
                 <div id="instBiga" class="instructions">
                     <div class="inst-step">
                         <span class="inst-title">שלב 1: הכנת הביגה (היום הראשון)</span>
-                        יש להשתמש בקמח <span class="inst-highlight">קאפוטו מניטובה</span>. טמפרטורת המים לביגה:
+                        יש להשתמש בקמח <span class="inst-highlight dynBigaFlourRec1">קאפוטו מניטובה</span>. טמפרטורת המים לביגה:
                         <div class="formula-box">55 - ROOM TEMPERTURE - FLOUR TEMPERTURE = WATER TEMPERTURE</div>
                         מניחים את הקמח לביגה (<span class="live-val dynPrefFlour">0g</span>) בקערה. בוחרים את סוג השמרים שרוצים (<span class="live-val dynPrefYeastFresh">0g</span> טריים <strong>או</strong> <span class="live-val dynPrefYeastDry">0g</span> יבשים), מפוררים לתוך המים שחישבנו (<span class="live-val dynPrefWater">0ml</span>) ומערבבים.
                         מוזגים בהדרגה לקערת הקמח ומערבבים <span class="inst-highlight">אך ורק עד שאין יותר קמח זמין בקערה</span>. מכסים בניילון נצמד עם חורים, משהים שעה בטמפ' חדר, ואז למקרר לזמן ההתפחה שבחרתם.
@@ -355,7 +355,7 @@
 
                     <div class="inst-step">
                         <span class="inst-title">שלב 3: לישה ובסינאז'</span>
-                        מוסיפים את שארית הקמח מסוג <span class="inst-highlight">קאפוטו נובולה סגול (Nuvola)</span> (<span class="live-val dynMainFlour">0g</span>). ברגע שהבצק מתייצב, מתחילים להוסיף בהדרגה את שארית המים הקרים (<span class="live-val dynWater20">0ml</span>).
+                        מוסיפים את שארית הקמח מסוג <span class="inst-highlight dynBigaFlourRec2">קאפוטו נובולה סגול (Nuvola)</span> (<span class="live-val dynMainFlour">0g</span>). ברגע שהבצק מתייצב, מתחילים להוסיף בהדרגה את שארית המים הקרים (<span class="live-val dynWater20">0ml</span>).
                     </div>
 
                     <div class="inst-step">
@@ -376,7 +376,7 @@
 
                     <div class="inst-step">
                         <span class="inst-title">שלב 1: הכנת הפוליש (היום הראשון)</span>
-                        בכלי שמים מים (<span class="live-val dynPrefWater">0ml</span>), מוסיפים שמרים (<span class="live-val dynPrefYeastFresh">0g</span> טריים <strong>או</strong> <span class="live-val dynPrefYeastDry">0g</span> יבשים) ומערבבים היטב עד שהשמרים נמסים במים. מוסיפים את הקמח (<span class="live-val dynPrefFlour">0g</span>) ומערבבים טוב טוב עד לקבלת מרקם של פוליש (כמו בלילת פנקייק סמיכה). מכסים את הקערה, ממתינים <span class="inst-highlight">שעה בטמפרטורת החדר</span> ומכניסים למקרר ל-12 עד 16 שעות.
+                        בכלי שמים מים (<span class="live-val dynPrefWater">0ml</span>), מוסיפים שמרים (<span class="live-val dynPrefYeastFresh">0g</span> טריים <strong>או</strong> <span class="live-val dynPrefYeastDry">0g</span> יבשים) ומערבבים היטב עד שהשמרים נמסים במים. מוסיפים את הקמח מסוג <span class="inst-highlight dynPoolishFlourRec1">קאפוטו נובולה או מניטובה</span> (<span class="live-val dynPrefFlour">0g</span>) ומערבבים טוב טוב עד לקבלת מרקם של פוליש (כמו בלילת פנקייק סמיכה). מכסים את הקערה, ממתינים <span class="inst-highlight">שעה בטמפרטורת החדר</span> ומכניסים למקרר ל-12 עד 16 שעות.
                     </div>
 
                     <div class="inst-step">
@@ -386,7 +386,7 @@
 
                     <div class="inst-step">
                         <span class="inst-title">שלב 3: הוספת מלח וקמח</span>
-                        תוך כדי שהמיקסר עובד, מוסיפים את המלח (<span class="live-val dynSalt">0g</span>) ולאחר מכן את הקמח (<span class="live-val dynMainFlour">0g</span>). כשמתחיל להיווצר בצק, עוצרים את המיקסר ועוברים ללוש על השיש.
+                        תוך כדי שהמיקסר עובד, מוסיפים את המלח (<span class="live-val dynSalt">0g</span>) ולאחר מכן את שארית הקמח מסוג <span class="inst-highlight dynPoolishFlourRec2">קאפוטו נובולה</span> (<span class="live-val dynMainFlour">0g</span>). כשמתחיל להיווצר בצק, עוצרים את המיקסר ועוברים ללוש על השיש.
                     </div>
 
                     <div class="inst-step">
@@ -467,7 +467,6 @@
             const water80 = mainWaterRem * 0.80;
             const water20 = mainWaterRem * 0.20;
 
-            // עדכון נתונים בטבלאות
             document.getElementById('resPrefFlour').innerText = prefFlour.toFixed(0) + 'g';
             document.getElementById('resPrefWater').innerText = prefWater.toFixed(0) + 'ml';
             document.getElementById('resPrefYeastDry').innerText = yeastDry.toFixed(2) + 'g';
@@ -480,23 +479,37 @@
             document.getElementById('resMainWaterTotalBiga').innerText = mainWaterRem.toFixed(0);
             document.getElementById('resMainWaterTotalPoolish').innerText = mainWaterRem.toFixed(0) + 'ml';
 
-            // יצירת המלצת קמחים דינמית
+            // יצירת המלצת קמחים דינמית ועדכון ההוראות החיות בהתאם
             let recText = "";
+            let bigaFlourRec1 = "קאפוטו מניטובה";
+            let bigaFlourRec2 = "קאפוטו נובולה סגול (Nuvola)";
+            let poolishFlourRec1 = "קאפוטו נובולה או מניטובה";
+            let poolishFlourRec2 = "קאפוטו נובולה";
+
             if (currentMethod === 'biga') {
                 recText = "לביגה מומלץ <strong>Caputo Manitoba</strong>. ";
                 if (hydration >= 68) {
                     recText += "בהידרציה גבוהה זו (" + hydration + "%), לבצק הסופי עדיף להשתמש ב-<strong>Caputo Cuoco</strong> כדי לשמור על יציבות המבנה.";
+                    bigaFlourRec2 = "קאפוטו קוואוקו (Cuoco) אדום";
                 } else {
                     recText += "לבצק הסופי מומלץ <strong>Caputo Nuvola</strong> לקבלת שוליים אווריריים במיוחד.";
                 }
             } else {
                 if (hydration >= 70) {
                     recText = "בהידרציה של 70%+, מומלץ להשתמש ב-<strong>Caputo Manitoba</strong> או <strong>Cuoco</strong> לאורך כל המתכון כדי שהבצק לא יקרע.";
+                    poolishFlourRec1 = "קאפוטו מניטובה או קוואוקו";
+                    poolishFlourRec2 = "קאפוטו מניטובה או קוואוקו";
                 } else {
                     recText = "לפוליש מומלץ <strong>Caputo Nuvola</strong> או <strong>Manitoba</strong>. לבצק הסופי מומלץ <strong>Caputo Nuvola</strong> לקבלת תוצאה קלילה.";
                 }
             }
             document.getElementById('recommendationText').innerHTML = recText;
+
+            // עדכון שמות הקמחים בהוראות ההכנה
+            updateLiveValues('dynBigaFlourRec1', bigaFlourRec1);
+            updateLiveValues('dynBigaFlourRec2', bigaFlourRec2);
+            updateLiveValues('dynPoolishFlourRec1', poolishFlourRec1);
+            updateLiveValues('dynPoolishFlourRec2', poolishFlourRec2);
 
             updateLiveValues('dynPrefFlour', prefFlour.toFixed(0) + 'g');
             updateLiveValues('dynPrefWater', prefWater.toFixed(0) + 'ml');
@@ -509,10 +522,9 @@
             updateLiveValues('dynWater20', water20.toFixed(0) + 'ml');
             updateLiveValues('dynMainWaterRem', mainWaterRem.toFixed(0) + 'ml'); 
 
-            // הפעלת האנימציה על ידי הסרה והחזרה של האלמנט
             const resultsArea = document.getElementById('resultsArea');
             resultsArea.style.display = 'none';
-            void resultsArea.offsetWidth; // Trigger reflow
+            void resultsArea.offsetWidth; 
             resultsArea.style.display = 'block';
             
             document.getElementById('instBtn').style.display = 'block';
